@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview Undangan - Rustic Floral</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Watermark Transparan Diagonal */
+    .watermark-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 30;
+      overflow: hidden;
+    }
+    .watermark-text {
+      transform: rotate(-25deg);
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba(225, 29, 72, 0.15); /* Warna Merah Transparan */
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      text-align: center;
+      user-select: none;
+    }
+  </style>
+</head>
+<body class="bg-rose-50 text-slate-800 font-sans antialiased min-h-screen relative pb-12">
+
+  <!-- Watermark Layar Penuh -->
+  <div class="watermark-overlay">
+    <div class="watermark-text">
+      MODE PREVIEW / DRAFT<br>
+      <span class="text-xl">BELUM DIPUBLIKASI</span>
+    </div>
+  </div>
+
+  <!-- FLOATING BAR / NAVBAR ATAS -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 px-4 py-3 shadow-sm">
+    <div class="max-w-4xl mx-auto flex items-center justify-between gap-2">
+      <!-- Status Badge -->
+      <div class="flex items-center gap-2">
+        <a href="./index.html" class="text-slate-500 hover:text-rose-600 transition text-sm">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <span class="bg-rose-100 text-rose-700 text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span> Mode Preview
+        </span>
+      </div>
+
+      <!-- Action Button Edit -->
+      <button 
+        onclick="handleEditProcess()" 
+        class="bg-rose-500 hover:bg-rose-600 active:scale-95 text-white font-medium text-sm px-4 py-2 rounded-xl transition shadow-md flex items-center gap-2">
+        <i class="fa-solid fa-pen-to-square"></i>
+        <span>Edit Tema Ini</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- KONTEN SAMPEL UNDANGAN (Template Rustic) -->
+  <main class="pt-20 px-4 max-w-lg mx-auto text-center">
+    
+    <!-- Hero / Cover Sampel -->
+    <section class="bg-white rounded-3xl p-8 shadow-xl border border-rose-100 my-4 relative overflow-hidden">
+      <div class="text-rose-400 mb-2">
+        <i class="fa-solid fa-heart text-2xl"></i>
+      </div>
+      <p class="text-xs uppercase tracking-widest text-slate-400 mb-2">The Wedding Of</p>
+      <h1 class="text-4xl font-serif text-rose-700 font-bold my-3">Romeo & Juliet</h1>
+      <p class="text-sm text-slate-500">Minggu, 12 Desember 2026</p>
+
+      <!-- Box Penerima Tamu Sampel -->
+      <div class="bg-rose-50/80 rounded-2xl p-4 my-6 border border-rose-100">
+        <p class="text-xs text-slate-500">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+        <p class="text-base font-bold text-slate-800 mt-1">Tamu Undangan (Sample)</p>
+      </div>
+
+      <p class="text-xs text-slate-400 italic">
+        "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri."
+      </p>
+    </section>
+
+    <!-- Mempelai Sampel -->
+    <section class="bg-white rounded-3xl p-6 shadow-md border border-rose-100 my-4">
+      <h2 class="text-xl font-serif font-bold text-slate-800 mb-4">Pasangan Mempelai</h2>
+      
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-lg font-bold text-rose-600">Romeo Montague, S.T.</h3>
+          <p class="text-xs text-slate-500">Putra dari Bapak Montague & Ibu Montague</p>
+        </div>
+        <div class="text-rose-400 font-serif font-bold text-lg">&</div>
+        <div>
+          <h3 class="text-lg font-bold text-rose-600">Juliet Capulet, S.Kom.</h3>
+          <p class="text-xs text-slate-500">Putri dari Bapak Capulet & Ibu Capulet</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Info Acara Sampel -->
+    <section class="bg-white rounded-3xl p-6 shadow-md border border-rose-100 my-4">
+      <h2 class="text-xl font-serif font-bold text-slate-800 mb-4">Rangkaian Acara</h2>
+      
+      <div class="bg-rose-50 p-4 rounded-2xl mb-3 text-left">
+        <h3 class="font-bold text-slate-800 text-sm">Akad Nikah</h3>
+        <p class="text-xs text-slate-600 mt-1"><i class="fa-regular fa-clock mr-1"></i> 08.00 - 10.00 WIB</p>
+        <p class="text-xs text-slate-600 mt-1"><i class="fa-solid fa-location-dot mr-1"></i> Masjid Agung Kota</p>
+      </div>
+
+      <div class="bg-rose-50 p-4 rounded-2xl text-left">
+        <h3 class="font-bold text-slate-800 text-sm">Resepsi</h3>
+        <p class="text-xs text-slate-600 mt-1"><i class="fa-regular fa-clock mr-1"></i> 11.00 - Selesai</p>
+        <p class="text-xs text-slate-600 mt-1"><i class="fa-solid fa-location-dot mr-1"></i> Gedung Manggala Wanabakti</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- INTEGRASI FIREBASE AUTH & LOGIK EDIT -->
+  <script type="module">
+    import { auth, googleProvider, signInWithPopup, onAuthStateChanged } from './firebase-config.js';
+
+    let currentUser = null;
+    const templateId = "rustic-floral"; // ID Tema ini
+
+    // Pantau Status Login User
+    onAuthStateChanged(auth, (user) => {
+      currentUser = user;
+    });
+
+    // Fungsi Utama ketika Tombol Edit Diklik
+    window.handleEditProcess = async () => {
+      if (!currentUser) {
+        // 1. Jika Belum Login, Tampilkan Info & Popup Login
+        alert("Silakan login dengan akun Google terlebih dahulu untuk mulai mengedit tema ini.");
+        
+        try {
+          const result = await signInWithPopup(auth, googleProvider);
+          if (result.user) {
+            // 2. Jika Berhasil Login, Arahkan ke Editor
+            window.location.href = `./editor.html?template=${templateId}`;
+          }
+        } catch (error) {
+          console.error("Proses login dibatalkan atau gagal:", error);
+        }
+      } else {
+        // 3. Jika Sudah Login, Langsung Arahkan ke Editor
+        window.location.href = `./editor.html?template=${templateId}`;
+      }
+    };
+  </script>
+</body>
+</html>
