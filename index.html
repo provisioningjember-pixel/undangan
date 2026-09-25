@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Katalog & Platform Undangan Digital</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Watermark Khusus Mode Preview */
+    .watermark-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      overflow: hidden;
+    }
+    .watermark-text {
+      transform: rotate(-30deg);
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: rgba(239, 68, 68, 0.25); /* Merah Transparan */
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      white-space: nowrap;
+      user-select: none;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans">
+
+  <!-- Navbar Navigation -->
+  <nav class="bg-white border-b border-slate-200 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="#" class="text-xl font-bold text-rose-600 flex items-center gap-2">
+        <i class="fa-solid fa-heart"></i> UndanganKita
+      </a>
+      <div id="authNav">
+        <button onclick="handleLogin()" class="bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium px-4 py-2 rounded-xl transition">
+          <i class="fa-solid fa-right-to-bracket mr-1"></i> Masuk / Daftar
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="bg-gradient-to-b from-rose-50 to-slate-50 py-12 px-4 text-center">
+    <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Pilih Desain Undangan Digitalmu</h1>
+    <p class="mt-3 text-slate-600 max-w-xl mx-auto text-base">Coba preview gratis, edit data & foto sesuai keinginanmu. Aktifkan link publik kapan saja.</p>
+  </header>
+
+  <!-- Grid Katalog Tema -->
+  <main class="max-w-7xl mx-auto px-4 py-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Card Template 1: Rustic Floral -->
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md transition flex flex-col">
+        <div class="relative h-60 bg-slate-100 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80" alt="Rustic Floral" class="w-full h-full object-cover">
+          <span class="absolute top-3 right-3 bg-emerald-500 text-white text-xs font-semibold px-2.5 py-1 rounded-full uppercase">Best Seller</span>
+        </div>
+        <div class="p-5 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-slate-800">Rustic Floral</h3>
+            <p class="text-sm text-slate-500 mt-1">Nuansa kayu estetik dengan ornamen bunga, cocok untuk konsep garden wedding.</p>
+          </div>
+          <div class="mt-6 flex gap-2">
+            <button onclick="openPreview('rustic-floral', 'Rustic Floral')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium py-2.5 rounded-xl text-sm transition">
+              <i class="fa-solid fa-eye mr-1"></i> Preview
+            </button>
+            <button onclick="useTemplate('rustic-floral')" class="flex-1 bg-rose-500 hover:bg-rose-600 text-white font-medium py-2.5 rounded-xl text-sm transition">
+              <i class="fa-solid fa-pen-to-square mr-1"></i> Edit Tema
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Template 2: Modern Elegant -->
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md transition flex flex-col">
+        <div class="relative h-60 bg-slate-100 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80" alt="Modern Elegant" class="w-full h-full object-cover">
+        </div>
+        <div class="p-5 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-slate-800">Modern Elegant</h3>
+            <p class="text-sm text-slate-500 mt-1">Sentuhan warna emas dan font serif yang anggun untuk pernikahan formal & mewah.</p>
+          </div>
+          <div class="mt-6 flex gap-2">
+            <button onclick="openPreview('modern-elegant', 'Modern Elegant')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium py-2.5 rounded-xl text-sm transition">
+              <i class="fa-solid fa-eye mr-1"></i> Preview
+            </button>
+            <button onclick="useTemplate('modern-elegant')" class="flex-1 bg-rose-500 hover:bg-rose-600 text-white font-medium py-2.5 rounded-xl text-sm transition">
+              <i class="fa-solid fa-pen-to-square mr-1"></i> Edit Tema
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- MODAL LIVE PREVIEW (Lengkap dengan Watermark Draft) -->
+  <div id="previewModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-2 sm:p-4">
+    <div class="bg-white rounded-3xl w-full max-w-md h-[90vh] flex flex-col overflow-hidden shadow-2xl relative">
+      
+      <!-- Modal Header -->
+      <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+        <div>
+          <h4 id="previewTitle" class="font-bold text-slate-800 text-sm">Preview Tema</h4>
+          <p class="text-xs text-rose-500 font-medium"><i class="fa-solid fa-lock"></i> Mode Preview (Draft)</p>
+        </div>
+        <button onclick="closePreview()" class="w-8 h-8 rounded-full bg-slate-200 text-slate-600 hover:bg-slate-300 flex items-center justify-center transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Preview Body (Iframe Tampilan Undangan Sample + Watermark) -->
+      <div class="flex-1 relative bg-rose-50">
+        
+        <!-- Lapisan Watermark Mencegah Screenshot/Sebar Gratis -->
+        <div class="watermark-overlay">
+          <div class="watermark-text">DRAFT PREVIEW<br>BELUM PUBLIK</div>
+        </div>
+
+        <!-- Contoh Tampilan Undangan Dalam Mode Preview -->
+        <div class="h-full overflow-y-auto p-6 text-center flex flex-col items-center justify-center">
+          <p class="text-xs uppercase tracking-widest text-slate-400 mb-2">The Wedding Of</p>
+          <h2 class="text-3xl font-serif text-rose-600 font-bold mb-4">Romeo & Juliet</h2>
+          
+          <div class="bg-white/80 backdrop-blur border border-rose-200 rounded-2xl p-4 my-4 w-full shadow-sm">
+            <p class="text-xs text-slate-500">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+            <p class="text-lg font-bold text-slate-800 mt-1">Tamu Undangan (Sample)</p>
+          </div>
+
+          <p class="text-xs text-slate-400 italic mb-6">Sabtu, 12 Desember 2026<br>Gedung Manggala Wanabakti, Jakarta</p>
+          
+          <div class="text-xs bg-amber-50 text-amber-700 border border-amber-200 rounded-xl p-3">
+            <i class="fa-solid fa-circle-info"></i> Fitur RSVP, Lagu Auto-play, & Nama Tamu Custom (`?yth=`) diaktifkan setelah dipublikasikan oleh Admin.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer Action -->
+      <div class="p-4 border-t border-slate-100 bg-white flex gap-2">
+        <button id="modalEditBtn" onclick="" class="w-full bg-rose-500 hover:bg-rose-600 text-white font-medium py-3 rounded-xl transition shadow-md flex items-center justify-center gap-2">
+          <i class="fa-solid fa-pen-to-square"></i> Gunakan & Edit Tema Ini
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JavaScript Logic & Firebase Auth Integration -->
+  <script type="module">
+    import { auth, googleProvider, signInWithPopup, onAuthStateChanged, signOut } from './firebase-config.js';
+
+    let currentUser = null;
+    let selectedTemplateId = null;
+
+    // Monitor Status Login User
+    onAuthStateChanged(auth, (user) => {
+      currentUser = user;
+      const authNav = document.getElementById('authNav');
+      if (user) {
+        authNav.innerHTML = `
+          <div class="flex items-center gap-3">
+            <img src="${user.photoURL || 'https://via.placeholder.com/32'}" class="w-8 h-8 rounded-full border border-rose-300">
+            <span class="text-sm font-medium text-slate-700 hidden sm:inline">${user.displayName || 'User'}</span>
+            <button onclick="handleLogout()" class="text-slate-500 hover:text-rose-600 text-sm ml-2"><i class="fa-solid fa-right-from-bracket"></i></button>
+          </div>
+        `;
+      } else {
+        authNav.innerHTML = `
+          <button onclick="handleLogin()" class="bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium px-4 py-2 rounded-xl transition">
+            <i class="fa-solid fa-right-to-bracket mr-1"></i> Masuk / Daftar
+          </button>
+        `;
+      }
+    });
+
+    // Fungsi Login Google
+    window.handleLogin = async () => {
+      try {
+        await signInWithPopup(auth, googleProvider);
+      } catch (error) {
+        alert("Gagal Login: " + error.message);
+      }
+    };
+
+    // Fungsi Logout
+    window.handleLogout = () => signOut(auth);
+
+    // Fungsi Buka Preview Modal
+    window.openPreview = (templateId, templateName) => {
+      selectedTemplateId = templateId;
+      document.getElementById('previewTitle').textContent = `Preview: ${templateName}`;
+      document.getElementById('modalEditBtn').setAttribute('onclick', `useTemplate('${templateId}')`);
+      document.getElementById('previewModal').classList.remove('hidden');
+    };
+
+    // Fungsi Tutup Preview Modal
+    window.closePreview = () => {
+      document.getElementById('previewModal').classList.add('hidden');
+    };
+
+    // Proteksi: Eksekusi Pilih & Edit Tema
+    window.useTemplate = (templateId) => {
+      if (!currentUser) {
+        // Jika belum login, jalankan proses login terlebih dahulu
+        alert("Silakan login atau mendaftar terlebih dahulu untuk mulai mengedit tema ini.");
+        handleLogin().then(() => {
+          if(auth.currentUser) {
+            window.location.href = `./editor.html?template=${templateId}`;
+          }
+        });
+      } else {
+        // Jika sudah login, langsung ke halaman editor
+        window.location.href = `./editor.html?template=${templateId}`;
+      }
+    };
+  </script>
+</body>
+</html>
